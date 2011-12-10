@@ -18,7 +18,7 @@ function [updated_rating1, updated_rating2, change] = gaussian_elo(rating1, rati
   
   # here we are using that the difference between two
   # normally distributed variables is a normally distributed
-  # value as well.
+  # value as well:
 
   # e.g. r1 ~ N(mu1, sigma1 ^ 2)
   #      r2 ~ N(mu2, sigma2 ^ 2)
@@ -29,18 +29,17 @@ function [updated_rating1, updated_rating2, change] = gaussian_elo(rating1, rati
   # for details please see:
   # http://mathworld.wolfram.com/NormalDifferenceDistribution.html
 
-  # so, to get the probability that second player will win we use
+  # so, to get the probability that second player will win, we use
   # cumulative d.f. value for 0 (0 is exact draw) as a total number
-  # of outcomes with difference < 0
+  # of outcomes with difference < 0:
   # p_second_win = normcdf(0, diff, beta * sqrt(2));
 
   # this can be rewritten in terms of standard normcdf by shifting its
-  # graphic to the left by `diff` and squeezing by `beta * sqrt(2)`
+  # graphic to the left by `diff` and squeezing by `beta * sqrt(2)`:
   # p_second_win = normcdf(-diff / (beta * sqrt(2)));
 
   # or rewriting for the first player to get rid of "minus":
   p_first_win = normcdf(diff / (beta * sqrt(2)));
-  #p_first_win = logistic_cdf(diff / (beta * sqrt(2)));
 
   change = K * (result - p_first_win);
   updated_rating1 = rating1 + change;
